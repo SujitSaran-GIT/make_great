@@ -1,0 +1,9 @@
+{
+  "name": "study-timetable",
+  "version": "1.0.0",
+  "description": "AI/ML Study Timetable",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  }
+}
