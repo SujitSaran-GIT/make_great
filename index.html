@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Zenith Schedule · AI/ML Master Timetable (Project Shifted)</title>
+  <title>Weekly Timetable · Fixed Slot Topics · AI/ML Study Plan</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -34,21 +34,17 @@
       gap: 1rem;
     }
     .title-section h1 {
-      font-size: 2.1rem;
+      font-size: 2rem;
       font-weight: 700;
       background: linear-gradient(135deg, #1F3B4C, #2B5F7A);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      letter-spacing: -0.3px;
     }
     .title-section p {
       color: #4a627a;
       font-weight: 500;
       margin-top: 0.3rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
     .badge-group {
       display: flex;
@@ -62,7 +58,6 @@
       font-size: 0.8rem;
       font-weight: 600;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      backdrop-filter: blur(2px);
       border: 1px solid rgba(59, 130, 246, 0.2);
     }
     .badge i {
@@ -79,12 +74,12 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.03), 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
       border: 1px solid rgba(0,0,0,0.05);
     }
     .legend-items {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.2rem;
       flex-wrap: wrap;
     }
     .legend-color {
@@ -95,21 +90,12 @@
       margin-right: 8px;
       vertical-align: middle;
     }
-    .topic-tag {
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-    .daily-note {
-      background: #ecfdf5;
-      padding: 0.3rem 1rem;
+    .stats-summary {
+      background: #eef2ff;
+      padding: 0.5rem 1rem;
       border-radius: 40px;
       font-size: 0.8rem;
-      font-weight: 500;
-      color: #0b5e42;
-    }
-    .highlight-project {
-      background: #ffecb3;
-      border-left: 4px solid #f57c00;
+      font-weight: 600;
     }
 
     .timetable-wrapper {
@@ -131,13 +117,10 @@
       color: white;
       font-weight: 600;
       padding: 1rem 0.8rem;
-      font-size: 0.9rem;
       text-align: center;
       border-right: 1px solid #2f4556;
     }
-    th:last-child {
-      border-right: none;
-    }
+    th:last-child { border-right: none; }
     td {
       background: white;
       padding: 0.9rem 0.6rem;
@@ -146,12 +129,8 @@
       vertical-align: top;
       transition: all 0.15s;
     }
-    tr:last-child td {
-      border-bottom: none;
-    }
-    td:last-child {
-      border-right: none;
-    }
+    tr:last-child td { border-bottom: none; }
+    td:last-child { border-right: none; }
     .time-col {
       background: #f8fafd;
       font-weight: 600;
@@ -159,11 +138,7 @@
       width: 110px;
       text-align: center;
       font-size: 0.8rem;
-      letter-spacing: -0.2px;
       border-right: 1px solid #e2e8f0;
-    }
-    .activity-cell {
-      min-height: 70px;
     }
     .topic-badge {
       display: inline-block;
@@ -173,11 +148,6 @@
       font-size: 0.7rem;
       font-weight: 600;
       margin-bottom: 5px;
-      color: #1f3a5f;
-    }
-    .doc-gen {
-      background: #e6f7ec;
-      border-left: 3px solid #2b9348;
     }
     .topic-detail {
       font-size: 0.75rem;
@@ -186,34 +156,25 @@
       line-height: 1.3;
       margin-top: 4px;
     }
-    i.fa, i.far {
-      margin-right: 4px;
-      font-size: 0.7rem;
-      opacity: 0.8;
-    }
+    i.fa, i.far { margin-right: 4px; font-size: 0.7rem; opacity: 0.8; }
 
-    /* color coding categories */
+    /* Color coding */
     .python { background: #e9f0fb; border-left: 3px solid #306998; }
     .dsa { background: #fef3e2; border-left: 3px solid #e67e22; }
+    .math_ml { background: #ede7f6; border-left: 3px solid #5e35b1; }
     .sql { background: #e1f0fa; border-left: 3px solid #00758d; }
-    .powerbi { background: #f9eec1; border-left: 3px solid #f2c811; }
+    .ml { background: #f3e5f5; border-left: 3px solid #9c27b0; }
+    .stats { background: #e0f2f1; border-left: 3px solid #00897b; }
     .pandas { background: #e6f4ea; border-left: 3px solid #4caf50; }
     .numpy { background: #e3f2fd; border-left: 3px solid #2196f3; }
-    .ml { background: #f3e5f5; border-left: 3px solid #9c27b0; }
-    .ml_algo { background: #fce4ec; border-left: 3px solid #e91e63; }
-    .math_ml { background: #ede7f6; border-left: 3px solid #5e35b1; }
-    .stats { background: #e0f2f1; border-left: 3px solid #00897b; }
-    .backend { background: #fff3e0; border-left: 3px solid #ff9800; }
+    .powerbi { background: #f9eec1; border-left: 3px solid #f2c811; }
     .ai_eng { background: #e8eaf6; border-left: 3px solid #3f51b5; }
+    .backend { background: #fff3e0; border-left: 3px solid #ff9800; }
+    .ml_algo { background: #fce4ec; border-left: 3px solid #e91e63; }
     .daily_pr { background: #ffebee; border-left: 3px solid #d32f2f; }
-    .break_time { background: #f1f5f9; border-left: 3px solid #94a3b8; color: #475569; font-style: italic; }
     .doc-slot { background: #eef2fa; border-left: 3px solid #5c6bc0; }
-
-    td:hover {
-      transform: scale(1.002);
-      box-shadow: inset 0 0 0 1px rgba(59,130,246,0.3);
-      background: #fefefe;
-    }
+    .break_time { background: #f1f5f9; border-left: 3px solid #94a3b8; }
+    .online_class { background: #e8f0fe; border-left: 3px solid #4285f4; }
 
     .footer-note {
       margin-top: 2rem;
@@ -223,15 +184,30 @@
       background: white;
       padding: 1rem;
       border-radius: 40px;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
     }
-
+    .frequency-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .frequency-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.8rem;
+    }
+    .freq-item {
+      background: #f8fafc;
+      border-radius: 40px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
     @media (max-width: 700px) {
       body { padding: 1rem; }
-      .legend-bar { flex-direction: column; gap: 12px; align-items: flex-start; }
-      .topic-detail { font-size: 0.7rem; }
+      .legend-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
   </style>
 </head>
@@ -239,13 +215,13 @@
 <div class="dashboard">
   <div class="hero">
     <div class="title-section">
-      <h1><i class="fas fa-calendar-alt"></i>  DeepFocus · AI Engineer Blueprint</h1>
-      <p><i class="fas fa-clock"></i> 05:00 → 23:00 disciplined track · <span class="highlight-project" style="padding:2px 8px; border-radius:20px;">🔥 DAILY PROJECT: 2:30 PM - 4:30 PM</span></p>
+      <h1><i class="fas fa-calendar-alt"></i>  Fixed Slot Timetable · Weekly Focus</h1>
+      <p><i class="fas fa-clock"></i> 05:00 → 23:00 | Topics assigned per slot as requested</p>
     </div>
     <div class="badge-group">
-      <div class="badge"><i class="fas fa-brain"></i> 15+ domains</div>
-      <div class="badge"><i class="fas fa-chalkboard-user"></i> Daily doc generation</div>
-      <div class="badge"><i class="fas fa-project-diagram"></i> Project-first 2:30-4:30</div>
+      <div class="badge"><i class="fas fa-brain"></i> Python · DSA · MathML</div>
+      <div class="badge"><i class="fas fa-database"></i> SQL · ML · Stats</div>
+      <div class="badge"><i class="fas fa-chart-line"></i> Power BI · AI Eng · NumPy</div>
     </div>
   </div>
 
@@ -253,158 +229,129 @@
     <div class="legend-items">
       <span><span class="legend-color" style="background:#306998;"></span> Python</span>
       <span><span class="legend-color" style="background:#e67e22;"></span> DSA</span>
+      <span><span class="legend-color" style="background:#5e35b1;"></span> MathML</span>
       <span><span class="legend-color" style="background:#00758d;"></span> SQL</span>
-      <span><span class="legend-color" style="background:#f2c811;"></span> Power BI</span>
+      <span><span class="legend-color" style="background:#9c27b0;"></span> ML</span>
+      <span><span class="legend-color" style="background:#00897b;"></span> Stats</span>
       <span><span class="legend-color" style="background:#4caf50;"></span> Pandas</span>
       <span><span class="legend-color" style="background:#2196f3;"></span> NumPy</span>
-      <span><span class="legend-color" style="background:#9c27b0;"></span> ML</span>
-      <span><span class="legend-color" style="background:#e91e63;"></span> ML Algos</span>
-      <span><span class="legend-color" style="background:#5e35b1;"></span> Math/ML</span>
-      <span><span class="legend-color" style="background:#00897b;"></span> Statistics</span>
-      <span><span class="legend-color" style="background:#ff9800;"></span> Backend</span>
+      <span><span class="legend-color" style="background:#f2c811;"></span> Power BI</span>
       <span><span class="legend-color" style="background:#3f51b5;"></span> AI Eng</span>
+      <span><span class="legend-color" style="background:#ff9800;"></span> Python Backend</span>
+      <span><span class="legend-color" style="background:#e91e63;"></span> ML Algo</span>
       <span><span class="legend-color" style="background:#d32f2f;"></span> Daily Proj</span>
-      <span><span class="legend-color" style="background:#5c6bc0;"></span> Doc Gen</span>
-      <span><span class="legend-color" style="background:#94a3b8;"></span> Break/Flex</span>
     </div>
-    <div class="daily-note"><i class="fas fa-edit"></i> Notes: 7-8am, 12-1pm, 5-6pm, 10-11pm | 2:30-4:30 = PROJECT EVERYDAY</div>
+    <div class="stats-summary"><i class="fas fa-chart-simple"></i> Frequencies calculated below</div>
   </div>
 
   <div class="timetable-wrapper">
     <table id="weeklyTable">
       <thead>
-        <tr>
-          <th>Time</th>
-          <th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th>
-        </tr>
+        <tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th></tr>
       </thead>
-      <tbody id="timetableBody">
-        <!-- dynamic rows generated -->
-      </tbody>
+      <tbody id="timetableBody"></tbody>
     </table>
   </div>
+
+  <div class="frequency-card" id="frequencyCard">
+    <h4><i class="fas fa-calculator"></i> Weekly Topic Frequency (Calculated)</h4>
+    <div class="frequency-grid" id="freqGrid"></div>
+  </div>
+
   <div class="footer-note">
-    <i class="fas fa-sync-alt"></i> ✅ Change applied: Daily Project fixed at 14:30-16:30 (previously rotating subjects moved to 08:00-10:00). All other advanced topics rotated across morning & evening.
+    <i class="fas fa-check-circle"></i> Timetable strictly follows your slot instructions. Daily Project fixed 14:30-16:30. Document generation slots unchanged.
   </div>
 </div>
 
 <script>
-  // TIME SLOTS exactly matching your schedule with the new requirement:
-  // - Daily Project now occupies 14:30 - 16:30 every single day.
-  // - Subjects that were originally rotating in 14:30-16:30 (ML Algos, Statistics, AI Eng, etc.) are moved to 08:00-10:00 AM slot.
-  // The rest remains faithful to original structure.
-  
-  const refinedSlots = [
-    { label: "05:00 - 07:00", type: "any" },                // early theory
-    { label: "07:00 - 08:00", type: "doc" },                // doc gen
-    { label: "08:00 - 10:00", type: "any" },                // ** NOW receives the subjects previously at 14:30-16:30 **
-    { label: "10:00 - 11:00", type: "any" },                // data manipulation
-    { label: "11:00 - 12:00", type: "break" },              // break
-    { label: "12:00 - 13:00", type: "doc" },                // doc gen
-    { label: "14:30 - 16:30", type: "project" },            // 🔥 DAILY PROJECT fixed (replaces any topic)
-    { label: "17:00 - 18:00", type: "doc" },                // doc gen
-    { label: "17:30 - 19:00", type: "anyClass" },           // online class / any topic
-    { label: "19:00 - 21:00", type: "any" },                // advanced expert
-    { label: "22:00 - 23:00", type: "doc" }                 // doc gen
+  // ----- TIME SLOTS DEFINITION (as requested) -----
+  const timeSlots = [
+    { label: "05:00 - 07:00", type: "rotation", topics: ["Python", "DSA", "Math for ML"] },
+    { label: "07:00 - 08:00", type: "doc", desc: "Document Generation" },
+    { label: "08:00 - 10:00", type: "rotation", topics: ["SQL", "Machine Learning", "Statistics"] },
+    { label: "10:00 - 11:00", type: "rotation", topics: ["Pandas", "NumPy"] },
+    { label: "11:00 - 12:00", type: "break", desc: "Break / Flex" },
+    { label: "12:00 - 13:00", type: "doc", desc: "Document Generation" },
+    { label: "14:30 - 16:30", type: "project", desc: "Daily Project" },
+    { label: "17:00 - 18:00", type: "doc", desc: "Document Generation" },
+    { label: "17:30 - 19:00", type: "rotation", topics: ["Online Class / ML Algorithms"] },
+    { label: "19:00 - 21:00", type: "rotation", topics: ["Power BI", "AI Engineering", "NumPy", "Python Backend"] },
+    { label: "22:00 - 23:00", type: "doc", desc: "Document Generation" },
+    { label: "23:00 - 04:00", type: "sleep", desc: "Sleep" }
   ];
-
-  // Core topics list (13 modules + project separate)
-  const coreTopics = [
-    { name: "Python", class: "python", icon: "fab fa-python", desc: "Advanced patterns & internals" },
-    { name: "DSA", class: "dsa", icon: "fas fa-code-branch", desc: "Optimization & problem solving" },
-    { name: "SQL (MS SQL)", class: "sql", icon: "fas fa-database", desc: "Query tuning & window functions" },
-    { name: "Power BI", class: "powerbi", icon: "fas fa-chart-line", desc: "DAX & advanced visualizations" },
-    { name: "Pandas", class: "pandas", icon: "fas fa-table", desc: "Data wrangling & transform" },
-    { name: "NumPy", class: "numpy", icon: "fas fa-calculator", desc: "Vectorization & linear algebra" },
-    { name: "Machine Learning", class: "ml", icon: "fas fa-robot", desc: "Supervised/Unsupervised" },
-    { name: "ML Algorithms", class: "ml_algo", icon: "fas fa-project-diagram", desc: "Ensembles, XGBoost, SVM" },
-    { name: "Math for ML", class: "math_ml", icon: "fas fa-square-root-alt", desc: "Calculus, matrices, optimization" },
-    { name: "Statistics", class: "stats", icon: "fas fa-chart-bar", desc: "Inference, distributions, A/B testing" },
-    { name: "Python Backend", class: "backend", icon: "fas fa-server", desc: "FastAPI, Django, APIs" },
-    { name: "AI Engineering", class: "ai_eng", icon: "fas fa-microchip", desc: "LLMs, agents, MLOps" },
-    { name: "Daily Project", class: "daily_pr", icon: "fas fa-laptop-code", desc: "End-to-end portfolio project" }
-  ];
-
-  // Mapping for subjects that originally were in 14:30-16:30 -> now moved to 08:00-10:00
-  // These represent heavy ML/AI/Stats/Backend topics to ensure balance
-  const movedSubjectsPool = [
-    "Machine Learning", "ML Algorithms", "Statistics", "AI Engineering", "Python Backend", "Math for ML", "DSA"
-  ];
-  
-  // Helper to get topic for any non-project, non-doc, non-break slots
-  function getTopicForSlot(dayIndex, slotObj, slotIdx) {
-    if (slotObj.type === "break") {
-      return { name: "🌿 Break / Stretch", class: "break_time", icon: "fas fa-spa", desc: "Mind reset · short walk · hydrate" };
-    }
-    if (slotObj.type === "doc") {
-      return { name: "📄 Document Generation", class: "doc-slot", icon: "fas fa-file-alt", desc: "Compile notes · refine modules · expert flashcards" };
-    }
-    if (slotObj.type === "project") {
-      // DAILY PROJECT fixed slot - always Daily Project
-      return { 
-        name: "🚀 DAILY PROJECT", 
-        class: "daily_pr", 
-        icon: "fas fa-rocket", 
-        desc: "Build real-world portfolio · integrate Python, ML, SQL, PowerBI · commit to GitHub" 
-      };
-    }
-    if (slotObj.type === "anyClass") {
-      // online class / any topic (17:30-19:00)
-      const classTopics = ["Python Backend", "AI Engineering", "ML Algorithms", "Machine Learning"];
-      const pick = classTopics[(dayIndex + slotIdx) % classTopics.length];
-      const found = coreTopics.find(t => t.name === pick);
-      return { ...found, desc: found.desc + " · live session & hands-on" };
-    }
-    
-    // For "any" slots: apply new mapping logic
-    // Slot 08:00-10:00 now gets the subjects originally from 14:30-16:30 (advanced rotation)
-    if (slotObj.label === "08:00 - 10:00") {
-      // Use movedSubjectsPool to rotate through advanced ML/backend topics
-      const movedTopicName = movedSubjectsPool[(dayIndex + slotIdx) % movedSubjectsPool.length];
-      const selected = coreTopics.find(t => t.name === movedTopicName);
-      return { ...selected, desc: selected.desc + " · in-depth theory & coding" };
-    }
-    
-    if (slotObj.label === "05:00 - 07:00") {
-      // early morning: Mathematics / Statistics / DSA fundamentals
-      const morningTheory = ["Math for ML", "Statistics", "DSA", "Python"];
-      const pickTheory = morningTheory[(dayIndex) % morningTheory.length];
-      const found = coreTopics.find(t => t.name === pickTheory);
-      return { ...found, desc: found.desc + " · deep focus morning session" };
-    }
-    
-    if (slotObj.label === "10:00 - 11:00") {
-      // data engineering focus: Pandas, NumPy, SQL, Power BI
-      const dataFocus = ["Pandas", "NumPy", "SQL (MS SQL)", "Power BI"];
-      const pickData = dataFocus[(dayIndex + slotIdx) % dataFocus.length];
-      const found = coreTopics.find(t => t.name === pickData);
-      return { ...found, desc: found.desc + " · hands-on data workflows" };
-    }
-    
-    if (slotObj.label === "19:00 - 21:00") {
-      // expert evening: AI Engineering, ML Algorithms, Backend, Advanced ML
-      const advancedEvening = ["AI Engineering", "ML Algorithms", "Python Backend", "Machine Learning"];
-      const advPick = advancedEvening[dayIndex % advancedEvening.length];
-      const found = coreTopics.find(t => t.name === advPick);
-      return { ...found, desc: found.desc + " · production-grade deep dive" };
-    }
-    
-    // fallback (should never happen with current labels, but safe)
-    const fallbackTopic = coreTopics[(dayIndex * 3 + slotIdx) % coreTopics.length];
-    return { ...fallbackTopic, desc: fallbackTopic.desc + " · focused sprint" };
-  }
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   
+  // Topic display mapping
+  const topicStyle = {
+    "Python": { class: "python", icon: "fab fa-python", full: "Python" },
+    "DSA": { class: "dsa", icon: "fas fa-code-branch", full: "DSA" },
+    "Math for ML": { class: "math_ml", icon: "fas fa-square-root-alt", full: "Math for ML" },
+    "SQL": { class: "sql", icon: "fas fa-database", full: "SQL" },
+    "Machine Learning": { class: "ml", icon: "fas fa-robot", full: "Machine Learning" },
+    "Statistics": { class: "stats", icon: "fas fa-chart-bar", full: "Statistics" },
+    "Pandas": { class: "pandas", icon: "fas fa-table", full: "Pandas" },
+    "NumPy": { class: "numpy", icon: "fas fa-calculator", full: "NumPy" },
+    "Power BI": { class: "powerbi", icon: "fas fa-chart-line", full: "Power BI" },
+    "AI Engineering": { class: "ai_eng", icon: "fas fa-microchip", full: "AI Engineering" },
+    "Python Backend": { class: "backend", icon: "fas fa-server", full: "Python Backend" },
+    "Online Class / ML Algorithms": { class: "ml_algo", icon: "fas fa-chalkboard-user", full: "ML Algorithms / Class" },
+    "Daily Project": { class: "daily_pr", icon: "fas fa-rocket", full: "Daily Project" },
+    "Document Generation": { class: "doc-slot", icon: "fas fa-file-alt", full: "Document Generation" },
+    "Break / Flex": { class: "break_time", icon: "fas fa-coffee", full: "Break" },
+    "Sleep": { class: "break_time", icon: "fas fa-bed", full: "Sleep" }
+  };
+
+  // Frequency counter
+  let frequency = {};
+
+  function initFrequency() {
+    const topics = ["Python", "DSA", "Math for ML", "SQL", "Machine Learning", "Statistics", "Pandas", "NumPy", "Power BI", "AI Engineering", "Python Backend", "Online Class / ML Algorithms", "Daily Project", "Document Generation", "Break / Flex", "Sleep"];
+    topics.forEach(t => { frequency[t] = 0; });
+  }
+
+  function getTopicForSlot(slot, dayIndex) {
+    if (slot.type === "doc") {
+      frequency["Document Generation"]++;
+      return { name: "Document Generation", class: "doc-slot", icon: "fas fa-file-alt", desc: "Structured notes & revision" };
+    }
+    if (slot.type === "break") {
+      frequency["Break / Flex"]++;
+      return { name: "Break / Flex", class: "break_time", icon: "fas fa-spa", desc: "Rest and recharge" };
+    }
+    if (slot.type === "project") {
+      frequency["Daily Project"]++;
+      return { name: "Daily Project", class: "daily_pr", icon: "fas fa-rocket", desc: "Hands-on portfolio building" };
+    }
+    if (slot.type === "sleep") {
+      frequency["Sleep"]++;
+      return { name: "Sleep", class: "break_time", icon: "fas fa-moon", desc: "7h recovery" };
+    }
+    if (slot.type === "rotation") {
+      let topicList = slot.topics;
+      // For 17:30-19:00 slot, "Online Class / ML Algorithms" is one item
+      let selected = topicList[dayIndex % topicList.length];
+      frequency[selected]++;
+      let style = topicStyle[selected] || { class: "ml_algo", icon: "fas fa-book", full: selected };
+      let descText = "";
+      if (selected === "Online Class / ML Algorithms") descText = "Live session + ML Algorithm deep dive";
+      else if (selected === "Python Backend") descText = "API development & backend concepts";
+      else if (selected === "AI Engineering") descText = "LLMs, agents, MLOps";
+      else descText = `Deep focus on ${selected}`;
+      return { name: selected, class: style.class, icon: style.icon, desc: descText };
+    }
+    return { name: "Focus", class: "python", icon: "fas fa-book", desc: "Study session" };
+  }
+
   function buildTable() {
+    initFrequency();
     const tbody = document.getElementById("timetableBody");
     tbody.innerHTML = "";
     
-    for (let slotIdx = 0; slotIdx < refinedSlots.length; slotIdx++) {
-      const slot = refinedSlots[slotIdx];
+    for (let slotIdx = 0; slotIdx < timeSlots.length; slotIdx++) {
+      const slot = timeSlots[slotIdx];
       const row = document.createElement("tr");
       
-      // time column
       const timeCell = document.createElement("td");
       timeCell.className = "time-col";
       timeCell.innerHTML = `<i class="far fa-clock"></i> ${slot.label}`;
@@ -412,58 +359,15 @@
       
       for (let day = 0; day < days.length; day++) {
         const cell = document.createElement("td");
-        cell.className = "activity-cell";
-        let topicInfo;
-        
-        if (slot.type === "project") {
-          // FIXED DAILY PROJECT EVERYDAY 2:30-4:30
-          topicInfo = { 
-            name: "🔥 DAILY PROJECT", 
-            class: "daily_pr", 
-            icon: "fas fa-code-branch", 
-            desc: "Build end-to-end pipeline · integrate all modules · version control & deploy" 
-          };
-        } else if (slot.type === "doc") {
-          topicInfo = { 
-            name: "📘 NOTES GENERATION", 
-            class: "doc-slot", 
-            icon: "fas fa-pen-fancy", 
-            desc: "Structure expert-level documentation · visualize concepts" 
-          };
-        } else if (slot.type === "break") {
-          topicInfo = { 
-            name: "☕ BREAK / FLEX", 
-            class: "break_time", 
-            icon: "fas fa-coffee", 
-            desc: "Recharge, walk, light stretching" 
-          };
-        } else {
-          topicInfo = getTopicForSlot(day, slot, slotIdx);
-        }
-        
-        const badgeClass = topicInfo.class || "python";
+        const topicInfo = getTopicForSlot(slot, day);
+        const badgeClass = topicStyle[topicInfo.name]?.class || topicInfo.class;
         const iconHtml = topicInfo.icon ? `<i class="${topicInfo.icon}"></i>` : `<i class="fas fa-book-open"></i>`;
-        const descText = topicInfo.desc || "Deep work session";
-        
-        // Additional small badge to highlight the project shift
-        let extraBadge = '';
-        if (slot.label === "08:00 - 10:00") {
-          extraBadge = `<div style="font-size:0.65rem; margin-top:4px; color:#e67e22;"><i class="fas fa-arrows-alt"></i> Moved from 14:30 slot</div>`;
-        }
-        if (slot.type === "project") {
-          extraBadge = `<div style="font-size:0.65rem; margin-top:4px; color:#c62828;"><i class="fas fa-calendar-check"></i> Fixed daily · portfolio focus</div>`;
-        }
-        
         cell.innerHTML = `
-          <div class="topic-badge ${badgeClass}" style="background:rgba(0,0,0,0.03);">
+          <div class="topic-badge" style="background:rgba(0,0,0,0.03);">
             ${iconHtml} ${topicInfo.name}
           </div>
           <div class="topic-detail">
-            <i class="fas fa-arrow-right"></i> ${descText}
-          </div>
-          ${extraBadge}
-          <div style="font-size:0.65rem; margin-top:6px; color:#6183a6;">
-            <i class="fas fa-layer-group"></i> expert module
+            <i class="fas fa-arrow-right"></i> ${topicInfo.desc}
           </div>
         `;
         cell.classList.add(badgeClass);
@@ -472,43 +376,19 @@
       tbody.appendChild(row);
     }
     
-    // Sleep row (consistent with original schedule 23:00-04:00)
-    const sleepRow = document.createElement("tr");
-    const sleepTimeCell = document.createElement("td");
-    sleepTimeCell.className = "time-col";
-    sleepTimeCell.innerHTML = `<i class="fas fa-moon"></i> 23:00 - 04:00`;
-    sleepRow.appendChild(sleepTimeCell);
-    for (let i = 0; i < days.length; i++) {
-      const cell = document.createElement("td");
-      cell.className = "break_time";
-      cell.innerHTML = `<div class="topic-badge"><i class="fas fa-bed"></i> Restorative Sleep</div>
-      <div class="topic-detail">7h deep recovery · next day readiness</div>`;
-      sleepRow.appendChild(cell);
+    // Display frequency
+    const freqGrid = document.getElementById("freqGrid");
+    freqGrid.innerHTML = "";
+    const sorted = Object.entries(frequency).sort((a,b) => b[1] - a[1]);
+    for (let [topic, count] of sorted) {
+      const freqDiv = document.createElement("div");
+      freqDiv.className = "freq-item";
+      freqDiv.innerHTML = `<strong>${topic}</strong>: ${count} ${count === 1 ? "time" : "times"}`;
+      freqGrid.appendChild(freqDiv);
     }
-    tbody.appendChild(sleepRow);
   }
   
   buildTable();
-  
-  // Add a dynamic tooltip style and ensure daily project appears in correct time.
-  const style = document.createElement('style');
-  style.textContent = `
-    td.daily_pr {
-      background: #fff4e5;
-      border-left: 4px solid #f57c00;
-    }
-    td.daily_pr .topic-badge {
-      background: #ffe0b5;
-    }
-    .highlight-project {
-      background: #ffe0b5;
-    }
-    td:hover {
-      transform: scale(1.002);
-      transition: all 0.1s ease;
-    }
-  `;
-  document.head.appendChild(style);
 </script>
 </body>
 </html>
