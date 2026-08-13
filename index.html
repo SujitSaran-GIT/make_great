@@ -1,394 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Weekly Timetable · Fixed Slot Topics · AI/ML Study Plan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: linear-gradient(145deg, #f0f5fe 0%, #e9eff8 100%);
-      font-family: 'Inter', sans-serif;
-      padding: 2rem 1.5rem;
-      color: #1a2c3e;
-    }
-
-    .dashboard {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .hero {
-      margin-bottom: 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 1rem;
-    }
-    .title-section h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #1F3B4C, #2B5F7A);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .title-section p {
-      color: #4a627a;
-      font-weight: 500;
-      margin-top: 0.3rem;
-    }
-    .badge-group {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .badge {
-      background: white;
-      padding: 0.5rem 1rem;
-      border-radius: 60px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      border: 1px solid rgba(59, 130, 246, 0.2);
-    }
-    .badge i {
-      margin-right: 6px;
-      color: #2c7da0;
-    }
-
-    .legend-bar {
-      background: white;
-      border-radius: 28px;
-      padding: 0.9rem 1.5rem;
-      margin-bottom: 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-    .legend-items {
-      display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-    }
-    .legend-color {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border-radius: 6px;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-    .stats-summary {
-      background: #eef2ff;
-      padding: 0.5rem 1rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .timetable-wrapper {
-      overflow-x: auto;
-      border-radius: 28px;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(2px);
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
-    }
-    table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      min-width: 880px;
-      font-size: 0.85rem;
-    }
-    th {
-      background: #1e2f3c;
-      color: white;
-      font-weight: 600;
-      padding: 1rem 0.8rem;
-      text-align: center;
-      border-right: 1px solid #2f4556;
-    }
-    th:last-child { border-right: none; }
-    td {
-      background: white;
-      padding: 0.9rem 0.6rem;
-      border-bottom: 1px solid #eef2f8;
-      border-right: 1px solid #eef2f8;
-      vertical-align: top;
-      transition: all 0.15s;
-    }
-    tr:last-child td { border-bottom: none; }
-    td:last-child { border-right: none; }
-    .time-col {
-      background: #f8fafd;
-      font-weight: 600;
-      color: #1e4663;
-      width: 110px;
-      text-align: center;
-      font-size: 0.8rem;
-      border-right: 1px solid #e2e8f0;
-    }
-    .topic-badge {
-      display: inline-block;
-      background: #eef2ff;
-      border-radius: 20px;
-      padding: 0.25rem 0.7rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-    .topic-detail {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #2c3e50;
-      line-height: 1.3;
-      margin-top: 4px;
-    }
-    i.fa, i.far { margin-right: 4px; font-size: 0.7rem; opacity: 0.8; }
-
-    /* Color coding */
-    .python { background: #e9f0fb; border-left: 3px solid #306998; }
-    .dsa { background: #fef3e2; border-left: 3px solid #e67e22; }
-    .math_ml { background: #ede7f6; border-left: 3px solid #5e35b1; }
-    .sql { background: #e1f0fa; border-left: 3px solid #00758d; }
-    .ml { background: #f3e5f5; border-left: 3px solid #9c27b0; }
-    .stats { background: #e0f2f1; border-left: 3px solid #00897b; }
-    .pandas { background: #e6f4ea; border-left: 3px solid #4caf50; }
-    .numpy { background: #e3f2fd; border-left: 3px solid #2196f3; }
-    .powerbi { background: #f9eec1; border-left: 3px solid #f2c811; }
-    .ai_eng { background: #e8eaf6; border-left: 3px solid #3f51b5; }
-    .backend { background: #fff3e0; border-left: 3px solid #ff9800; }
-    .ml_algo { background: #fce4ec; border-left: 3px solid #e91e63; }
-    .daily_pr { background: #ffebee; border-left: 3px solid #d32f2f; }
-    .doc-slot { background: #eef2fa; border-left: 3px solid #5c6bc0; }
-    .break_time { background: #f1f5f9; border-left: 3px solid #94a3b8; }
-    .online_class { background: #e8f0fe; border-left: 3px solid #4285f4; }
-
-    .footer-note {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #5f7f9e;
-      background: white;
-      padding: 1rem;
-      border-radius: 40px;
-    }
-    .frequency-card {
-      background: white;
-      border-radius: 24px;
-      padding: 1.2rem;
-      margin-top: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .frequency-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 0.8rem;
-    }
-    .freq-item {
-      background: #f8fafc;
-      border-radius: 40px;
-      padding: 0.3rem 1rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-    @media (max-width: 700px) {
-      body { padding: 1rem; }
-      .legend-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Learning Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="dashboard">
-  <div class="hero">
-    <div class="title-section">
-      <h1><i class="fas fa-calendar-alt"></i>  Fixed Slot Timetable · Weekly Focus</h1>
-      <p><i class="fas fa-clock"></i> 05:00 → 23:00 | Topics assigned per slot as requested</p>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-graduation-cap"></i></span>
+                    <div>
+                        <h1>Weekly Learning Dashboard</h1>
+                        <p class="subtitle">Learn • Practice • Build • Apply • Grow</p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="current-date" id="currentDate"></div>
+                <div class="live-clock" id="liveClock">00:00:00</div>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title">YOUR WEEK.<br>YOUR SKILLS.<br>YOUR FUTURE.</h2>
+                <p class="hero-desc">A structured learning system designed to help you learn consistently, build projects, and advance your career.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-card">
+                    <span class="hero-label">TODAY</span>
+                    <span class="hero-value" id="heroDay">Thursday</span>
+                </div>
+                <div class="hero-card current-session-card">
+                    <span class="hero-label">CURRENT SESSION</span>
+                    <span class="hero-value" id="heroCurrent">—</span>
+                    <span class="hero-sub" id="heroCurrentTime"></span>
+                </div>
+                <div class="hero-card">
+                    <span class="hero-label">UP NEXT</span>
+                    <span class="hero-value" id="heroNext">—</span>
+                    <span class="hero-sub" id="heroNextTime"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress & Stats Bar -->
+        <section class="progress-section">
+            <div class="progress-card">
+                <div class="progress-header">
+                    <h3>Today's Progress</h3>
+                    <span class="progress-text" id="progressText">0 / 0 Sessions</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                </div>
+                <span class="progress-percent" id="progressPercent">0%</span>
+            </div>
+            <div class="up-next-card" id="upNextCard">
+                <div class="up-next-header">
+                    <i class="fas fa-clock"></i>
+                    <span>UP NEXT</span>
+                </div>
+                <div class="up-next-content">
+                    <h4 id="upNextTitle">—</h4>
+                    <p id="upNextTime">—</p>
+                    <div class="countdown" id="countdown">
+                        <span>Starts in:</span>
+                        <strong id="countdownTimer">--:--:--</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day Navigation -->
+        <nav class="day-nav" aria-label="Day selector">
+            <button class="today-btn" id="todayBtn">
+                <i class="fas fa-calendar-day"></i> TODAY
+            </button>
+            <div class="day-buttons" id="dayButtons">
+                <!-- Populated by JS -->
+            </div>
+        </nav>
+
+        <!-- Search & Filters -->
+        <section class="controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search your schedule..." aria-label="Search schedule">
+            </div>
+            <div class="category-filters" id="categoryFilters">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Mobile/Selected Day View -->
+            <section class="day-view" id="dayView">
+                <div class="day-header">
+                    <h2 id="selectedDayTitle">Thursday</h2>
+                    <span class="weekend-badge" id="weekendBadge" style="display:none">WEEKEND</span>
+                    <span class="today-badge" id="todayBadge" style="display:none">TODAY</span>
+                </div>
+                <div class="day-summary" id="daySummary">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="timeline" id="timeline">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Desktop Weekly Grid -->
+            <section class="weekly-grid" id="weeklyGrid">
+                <!-- Populated by JS -->
+            </section>
+
+            <!-- Weekly Statistics -->
+            <section class="stats-section">
+                <h3>Weekly Statistics</h3>
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Legend -->
+            <section class="legend">
+                <h4>Legend</h4>
+                <div class="legend-items" id="legendItems">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built for Consistent Learning</p>
+            <p class="footer-tagline">Learn • Practice • Build • Apply</p>
+            <p class="copyright">© 2026 Weekly Learning Dashboard</p>
+        </footer>
     </div>
-    <div class="badge-group">
-      <div class="badge"><i class="fas fa-brain"></i> Python · DSA · MathML</div>
-      <div class="badge"><i class="fas fa-database"></i> SQL · ML · Stats</div>
-      <div class="badge"><i class="fas fa-chart-line"></i> Power BI · AI Eng · NumPy</div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" id="modalClose" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-icon" id="modalIcon"></div>
+            <h3 id="modalTitle">Subject</h3>
+            <div class="modal-meta">
+                <span id="modalTime"></span>
+                <span id="modalDuration"></span>
+            </div>
+            <div class="modal-category" id="modalCategory"></div>
+            <p class="modal-desc" id="modalDesc"></p>
+            <div class="modal-status" id="modalStatus"></div>
+            <button class="complete-btn" id="completeBtn">
+                <i class="fas fa-check"></i> Mark as Completed
+            </button>
+        </div>
     </div>
-  </div>
 
-  <div class="legend-bar">
-    <div class="legend-items">
-      <span><span class="legend-color" style="background:#306998;"></span> Python</span>
-      <span><span class="legend-color" style="background:#e67e22;"></span> DSA</span>
-      <span><span class="legend-color" style="background:#5e35b1;"></span> MathML</span>
-      <span><span class="legend-color" style="background:#00758d;"></span> SQL</span>
-      <span><span class="legend-color" style="background:#9c27b0;"></span> ML</span>
-      <span><span class="legend-color" style="background:#00897b;"></span> Stats</span>
-      <span><span class="legend-color" style="background:#4caf50;"></span> Pandas</span>
-      <span><span class="legend-color" style="background:#2196f3;"></span> NumPy</span>
-      <span><span class="legend-color" style="background:#f2c811;"></span> Power BI</span>
-      <span><span class="legend-color" style="background:#3f51b5;"></span> AI Eng</span>
-      <span><span class="legend-color" style="background:#ff9800;"></span> Python Backend</span>
-      <span><span class="legend-color" style="background:#e91e63;"></span> ML Algo</span>
-      <span><span class="legend-color" style="background:#d32f2f;"></span> Daily Proj</span>
-    </div>
-    <div class="stats-summary"><i class="fas fa-chart-simple"></i> Frequencies calculated below</div>
-  </div>
-
-  <div class="timetable-wrapper">
-    <table id="weeklyTable">
-      <thead>
-        <tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th></tr>
-      </thead>
-      <tbody id="timetableBody"></tbody>
-    </table>
-  </div>
-
-  <div class="frequency-card" id="frequencyCard">
-    <h4><i class="fas fa-calculator"></i> Weekly Topic Frequency (Calculated)</h4>
-    <div class="frequency-grid" id="freqGrid"></div>
-  </div>
-
-  <div class="footer-note">
-    <i class="fas fa-check-circle"></i> Timetable strictly follows your slot instructions. Daily Project fixed 14:30-16:30. Document generation slots unchanged.
-  </div>
-</div>
-
-<script>
-  // ----- TIME SLOTS DEFINITION (as requested) -----
-  const timeSlots = [
-    { label: "05:00 - 07:00", type: "rotation", topics: ["Python", "DSA", "Math for ML"] },
-    { label: "07:00 - 08:00", type: "doc", desc: "Document Generation" },
-    { label: "08:00 - 10:00", type: "rotation", topics: ["SQL", "Machine Learning", "Statistics"] },
-    { label: "10:00 - 11:00", type: "rotation", topics: ["Pandas", "NumPy"] },
-    { label: "11:00 - 12:00", type: "break", desc: "Break / Flex" },
-    { label: "12:00 - 13:00", type: "doc", desc: "Document Generation" },
-    { label: "14:30 - 16:30", type: "project", desc: "Daily Project" },
-    { label: "17:00 - 18:00", type: "doc", desc: "Document Generation" },
-    { label: "17:30 - 19:00", type: "rotation", topics: ["Online Class / ML Algorithms"] },
-    { label: "19:00 - 21:00", type: "rotation", topics: ["Power BI", "AI Engineering", "NumPy", "Python Backend"] },
-    { label: "22:00 - 23:00", type: "doc", desc: "Document Generation" },
-    { label: "23:00 - 04:00", type: "sleep", desc: "Sleep" }
-  ];
-
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  
-  // Topic display mapping
-  const topicStyle = {
-    "Python": { class: "python", icon: "fab fa-python", full: "Python" },
-    "DSA": { class: "dsa", icon: "fas fa-code-branch", full: "DSA" },
-    "Math for ML": { class: "math_ml", icon: "fas fa-square-root-alt", full: "Math for ML" },
-    "SQL": { class: "sql", icon: "fas fa-database", full: "SQL" },
-    "Machine Learning": { class: "ml", icon: "fas fa-robot", full: "Machine Learning" },
-    "Statistics": { class: "stats", icon: "fas fa-chart-bar", full: "Statistics" },
-    "Pandas": { class: "pandas", icon: "fas fa-table", full: "Pandas" },
-    "NumPy": { class: "numpy", icon: "fas fa-calculator", full: "NumPy" },
-    "Power BI": { class: "powerbi", icon: "fas fa-chart-line", full: "Power BI" },
-    "AI Engineering": { class: "ai_eng", icon: "fas fa-microchip", full: "AI Engineering" },
-    "Python Backend": { class: "backend", icon: "fas fa-server", full: "Python Backend" },
-    "Online Class / ML Algorithms": { class: "ml_algo", icon: "fas fa-chalkboard-user", full: "ML Algorithms / Class" },
-    "Daily Project": { class: "daily_pr", icon: "fas fa-rocket", full: "Daily Project" },
-    "Document Generation": { class: "doc-slot", icon: "fas fa-file-alt", full: "Document Generation" },
-    "Break / Flex": { class: "break_time", icon: "fas fa-coffee", full: "Break" },
-    "Sleep": { class: "break_time", icon: "fas fa-bed", full: "Sleep" }
-  };
-
-  // Frequency counter
-  let frequency = {};
-
-  function initFrequency() {
-    const topics = ["Python", "DSA", "Math for ML", "SQL", "Machine Learning", "Statistics", "Pandas", "NumPy", "Power BI", "AI Engineering", "Python Backend", "Online Class / ML Algorithms", "Daily Project", "Document Generation", "Break / Flex", "Sleep"];
-    topics.forEach(t => { frequency[t] = 0; });
-  }
-
-  function getTopicForSlot(slot, dayIndex) {
-    if (slot.type === "doc") {
-      frequency["Document Generation"]++;
-      return { name: "Document Generation", class: "doc-slot", icon: "fas fa-file-alt", desc: "Structured notes & revision" };
-    }
-    if (slot.type === "break") {
-      frequency["Break / Flex"]++;
-      return { name: "Break / Flex", class: "break_time", icon: "fas fa-spa", desc: "Rest and recharge" };
-    }
-    if (slot.type === "project") {
-      frequency["Daily Project"]++;
-      return { name: "Daily Project", class: "daily_pr", icon: "fas fa-rocket", desc: "Hands-on portfolio building" };
-    }
-    if (slot.type === "sleep") {
-      frequency["Sleep"]++;
-      return { name: "Sleep", class: "break_time", icon: "fas fa-moon", desc: "7h recovery" };
-    }
-    if (slot.type === "rotation") {
-      let topicList = slot.topics;
-      // For 17:30-19:00 slot, "Online Class / ML Algorithms" is one item
-      let selected = topicList[dayIndex % topicList.length];
-      frequency[selected]++;
-      let style = topicStyle[selected] || { class: "ml_algo", icon: "fas fa-book", full: selected };
-      let descText = "";
-      if (selected === "Online Class / ML Algorithms") descText = "Live session + ML Algorithm deep dive";
-      else if (selected === "Python Backend") descText = "API development & backend concepts";
-      else if (selected === "AI Engineering") descText = "LLMs, agents, MLOps";
-      else descText = `Deep focus on ${selected}`;
-      return { name: selected, class: style.class, icon: style.icon, desc: descText };
-    }
-    return { name: "Focus", class: "python", icon: "fas fa-book", desc: "Study session" };
-  }
-
-  function buildTable() {
-    initFrequency();
-    const tbody = document.getElementById("timetableBody");
-    tbody.innerHTML = "";
-    
-    for (let slotIdx = 0; slotIdx < timeSlots.length; slotIdx++) {
-      const slot = timeSlots[slotIdx];
-      const row = document.createElement("tr");
-      
-      const timeCell = document.createElement("td");
-      timeCell.className = "time-col";
-      timeCell.innerHTML = `<i class="far fa-clock"></i> ${slot.label}`;
-      row.appendChild(timeCell);
-      
-      for (let day = 0; day < days.length; day++) {
-        const cell = document.createElement("td");
-        const topicInfo = getTopicForSlot(slot, day);
-        const badgeClass = topicStyle[topicInfo.name]?.class || topicInfo.class;
-        const iconHtml = topicInfo.icon ? `<i class="${topicInfo.icon}"></i>` : `<i class="fas fa-book-open"></i>`;
-        cell.innerHTML = `
-          <div class="topic-badge" style="background:rgba(0,0,0,0.03);">
-            ${iconHtml} ${topicInfo.name}
-          </div>
-          <div class="topic-detail">
-            <i class="fas fa-arrow-right"></i> ${topicInfo.desc}
-          </div>
-        `;
-        cell.classList.add(badgeClass);
-        row.appendChild(cell);
-      }
-      tbody.appendChild(row);
-    }
-    
-    // Display frequency
-    const freqGrid = document.getElementById("freqGrid");
-    freqGrid.innerHTML = "";
-    const sorted = Object.entries(frequency).sort((a,b) => b[1] - a[1]);
-    for (let [topic, count] of sorted) {
-      const freqDiv = document.createElement("div");
-      freqDiv.className = "freq-item";
-      freqDiv.innerHTML = `<strong>${topic}</strong>: ${count} ${count === 1 ? "time" : "times"}`;
-      freqGrid.appendChild(freqDiv);
-    }
-  }
-  
-  buildTable();
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
